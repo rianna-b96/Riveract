@@ -1,7 +1,5 @@
 import math
 from math import tanh
-import pandas as pd
-import numpy as np
 
 def s_curves1(t, x4):
     """
@@ -133,20 +131,3 @@ def gr4j(precip, potential_evap, params, states = None, return_state = False):
         }
     else:
         return qsim
-
-params = { 'X1': 303.627616, 'X2': 0.32238919, 'X3': 6.49759466, 'X4': 0.294803885 }
-states = { 'production_store': 0.60 * params['X1'], 'routing_store': 0.70 * params['X3'] }
-
-rainfall = []
-potential_evap =[]
-simulated_flow = []
-
-data = pd.read_csv(r"C:\Users\elija\Desktop\Maker Games\March 2001 GR4J Input.csv")
-
-for i in range(len(data)):
-    rainfall.append([data.iloc[i, 0]])
-    potential_evap.append([data.iloc[i, 1]])
-    simulated_flow.append(gr4j(rainfall[i], potential_evap[i], params, states))
-
-np.savetxt(r"C:\Users\elija\Desktop\Maker Games\March 2001 GR4J output.csv",
-           np.c_[data.iloc[:, 0], data.iloc[:, 1], simulated_flow], delimiter=',')
